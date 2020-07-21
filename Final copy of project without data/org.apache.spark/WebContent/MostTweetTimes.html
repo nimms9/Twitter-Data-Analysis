@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bar Chart</title>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?2.6.0"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.csv.js?2.6.0"></script>
+    <style type="text/css">
+
+body {
+  font: 10px sans-serif;
+}
+
+.bar rect {
+  fill: orange;
+}
+
+.bar text.value {
+  fill: white;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.axis path {
+  fill: none;
+}
+
+.x.axis line {
+  stroke: #fff;
+  stroke-opacity: .8;
+}
+
+.y.axis path {
+  stroke: black;
+}
+
+    </style>
+  </head>
+  <body align=center>
+  
+  <table align=center>
+	<tr>
+	<td><font size="10" color="blue">Top 8 Most Tweeting Timestamps</font> </td>
+	<td></td><td></td><td></td><td><a href="Home.html"><img src="images/home.png" width="240" height="80"></a>
+	</tr>
+	
+		
+	</table>  
+    <script type="text/javascript">
+
+var m = [30, 10, 10, 130],
+    w = 900 - m[1] - m[3],
+    h = 600 - m[0] - m[2];
+
+var format = d3.format(",.0f");
+
+var x = d3.scale.linear().range([0, w]),
+    y = d3.scale.ordinal().rangeRoundBands([0, h], .1);
+
+var xAxis = d3.svg.axis().scale(x).orient("top").tickSize(-h),
+    yAxis = d3.svg.axis().scale(y).orient("left").tickSize(0);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", w + m[1] + m[3])
+    .attr("height", h + m[0] + m[2])
+  .append("g")
+    .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+d3.csv("query6.csv", function(data) {
+
+  // Parse numbers, and sort by value.
+  data.forEach(function(d) { d.Count = +d.Count; });
+  data.sort(function(a, b) { return b.Count - a.Count; });
+
+  // Set the scale domain.
+  x.domain([0, d3.max(data, function(d) { return d.Count; })]);
+  y.domain(data.map(function(d) { return d.Time; }));
+
+  var bar = svg.selectAll("g.bar")
+      .data(data)
+    .enter().append("g")
+      .attr("class", "bar")
+      .attr("transform", function(d) { return "translate(10," + y(d.Time) + ")"; });
+
+  bar.append("rect")
+      .attr("width", function(d) { return x(d.Count); })
+      .attr("height", y.rangeBand());
+
+  bar.append("text")
+      .attr("class", "value")
+      .attr("x", function(d) { return x(d.Count); })
+      .attr("y", y.rangeBand() / 2)
+      .attr("dx", -3)
+      .attr("dy", ".35em")
+      .attr("text-anchor", "end")
+      .text(function(d) { return format(d.Count); });
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .call(xAxis);
+var padding=10;
+  svg.append("g")
+      .attr("class", "y axis")
+      .attr("transform","translate("+padding+",0)")
+      .call(yAxis);
+});
+
+    </script>
+  </body>
+</html>

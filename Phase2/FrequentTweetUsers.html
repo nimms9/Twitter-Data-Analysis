@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.bar {
+  fill: #4CC552;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+</style>
+
+<body align="center">
+
+<table align="center">
+	<tr>
+	<td><font size="10" color="blue">Top 8 Most Tweeting Users</font> </td>
+	<td></td><td></td><td></td><td><a href="Home.html"><img src="images/home.png" width="240" height="80"></a>
+	</tr>
+	
+		
+	</table>  
+
+<svg class="chart"></svg>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script>
+
+var margin = {top: 20, right: 30, bottom: 30, left: 90},
+    width = 860 - margin.left - margin.right,
+    height = 440 - margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var chart = d3.select(".chart")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("query2.csv", type, function(error, data) {
+  x.domain(data.map(function(d) { return d.Name; }));
+  y.domain([0, d3.max(data, function(d) { return d.Count; })]);
+
+  chart.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  chart.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  chart.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.Name); })
+      .attr("y", function(d) { return y(d.Count); })
+      .attr("height", function(d) { return height - y(d.Count); })
+      .attr("width", x.rangeBand());
+});
+
+function type(d) {
+  d.Count = +d.Count; // coerce to number
+  return d;
+}
+
+</script>
+
+</body>

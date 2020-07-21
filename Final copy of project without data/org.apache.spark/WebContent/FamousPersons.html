@@ -1,0 +1,65 @@
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
+
+</head>
+<body style="text-align:center;">
+
+<table align=center>
+	<tr>
+	<td><font size="10" color="blue">Top 8 Users with highest followers</font> </td>
+	<td></td><td></td><td></td><td><a href="Home.html"><img src="images/home.png" width="240" height="80"></a>
+	</tr>
+	
+		
+	</table>  
+	
+	<svg id="chart" style="width:900; height:400; padding-left: 50px;"></svg>    
+</body>
+
+<script type="text/javascript">
+
+	d3.csv("query3.csv", function(error, data){
+		console.log(data)
+		// create an empty object that nv is expecting
+    var exampleData = [
+    	{
+    		key: "totals",
+    		values: []
+    	}
+    ];
+
+        // populate the empty object with your data
+    data.forEach(function (d){
+    	d.Count = +d.Count
+    	exampleData[0].values.push(d)
+    })       
+
+ 	nv.addGraph(function() {
+		
+   		var chart = nv.models.discreteBarChart()
+       		.x(function (d) { console.log(d); return d.Name })
+       		.y(function (d) { return d.Count })
+       		.staggerLabels(true)
+       		.tooltips(false)
+       		.showValues(true)
+       		.color(['#727272', '#f1595f', '#79c36a','#599ad3','#f9a65a','#9e66ab','cd7058','#d77fb3']);
+ 
+ 	  	d3.select('#chart')
+    			.datum(exampleData)
+    			.attr("id", function (d) { console.log(d); })
+    		.transition().duration(500)
+       			.call(chart);
+ 
+   		nv.utils.windowResize(chart.update);
+   		return chart;
+ 	});
+
+ });
+
+</script>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+<title>PB Project</title> 
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<script>
+ 
+  $( document ).ready(function() {
+    $('#process').hide();
+    
+  });
+ 
+  </script>
+  <script type="text/javascript">
+$(document).ready(function(){
+$('#form1').on('submit', function() {
+ 
+  $('#process').show();
+  })
+});
+  </script>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+    <style type="text/css">
+    .header-section{font-family:'playfair Display', serif; text-align:center; background:#bc0e15 url(images/header-bg.jpg) repeat-y center; padding-top:70px; padding-bottom:20px; border:1px solid red;}
+    .button{text-decoration:none; line-height:30px; color:#ffffff;font-size:16px; text-align:center; display:block; width:99px; height:30px; background:url(images/buttons-bg.jpg) no-repeat; font-family: 'playfair Display', serif;}
+    .logo{ width:250px; font-size:54px; color:#ffffff; font-weight:normal;}
+    .menu{list-style:none; background:url(images/lo-bg.png) repeat; color:#e00b15;
+          display:inline; line-height:20px; height:20px; color:#ffffff; text-decoration:none;
+          padding-left:20px; padding-right:20px;}
+        .style1
+        {
+            color: #ffffff;
+            font-size: xx-large;
+            font-family:'playfair Display', serif;
+            text-align:center;
+        }
+        .style2
+        {
+            font-family:'playfair Display', serif;
+            font-size: x-large;
+            color: #000000;
+        }
+        .style3
+        {
+            font-family: "Times New Roman", Times, serif;
+        }
+        .style4
+        {
+            width: 290px;
+            height: 283px;
+        }
+        .style5
+        {
+            color: Brown;
+            font-size: x-large;
+            font-family: "Times New Roman", Times, serif;
+        }
+    </style>
+
+</head>
+<body> 
+
+    
+        <div class="header-section">
+<span class="logo">USA Presidential Candidates<br>
+            </span>
+            <br>
+<span class="style2">Twitter Data Analysis</span>
+</div>
+
+
+    
+    <table align=center>
+    <tr>
+    <td style="padding-right:100px">
+<P>Welcome!!</P>
+<P>Know the people pulse on Future President</P>
+<P>From the Twitter Data</P>
+    </td>
+    <td>
+    <form id="form1" method="Post" action="Query">
+<div>
+<h4 style="font-family:Times New Roman"><font color="Orange">Select the Query to Run</font></h4>
+<input type="radio" name="Query selected" value="1"> Tweet Count based on President Candidates<br>
+    <input type="radio" name="Query selected" value="2"> Top 8 Most Frequently Tweeting Users<br>
+    <input type="radio" name="Query selected" value="3"> Top 8 Users with highest followers<br>
+    <input type="radio" name="Query selected" value="4"> Top Locations with most Tweets<br>
+    <input type="radio" name="Query selected" value="5"> Users with Friends greater than 150000<br>
+    <input type="radio" name="Query selected" value="6"> Top 8 Most Tweeting Timestamps<br>
+    <input type="radio" name="Query selected" value="7"> Sentiment Discovery<br>
+    <input type="radio" name="Query selected" value="8"> Tweets From Different Type of Devices<br>
+    <input type="radio" name="Query selected" value="9"> Tweet vs Retweet Stats<br>
+    <span>
+    <input  class="button" type="submit" value="Submit"></span>
+
+</div>   
+<br>
+<div id="process">
+<img src="images/loading.gif">
+</div> 
+</form>
+    </td>
+    </tr>
+    </table>             
+</body>
+</html>
