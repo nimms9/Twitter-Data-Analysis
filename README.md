@@ -2,7 +2,7 @@
 This project is developed as part of Big Data Programming class at UMKC, Summer 2019.
 
 Twitter data analysis on “USA Presidential Candidates”.
-1GB of tweets collected using twitter4j.
+1GB of tweets collected using tweepy.
 Dynamic web application to visualize the results.
 Apache Spark SQL and RDD 
 9 different dynamic queries are created for top trends like tweet source, highest tweets per candidate, top locations, etc. and sentiment discovery
